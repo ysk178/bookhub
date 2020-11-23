@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :set_book, only: [:edit, :show]
   def index
     @books = Book.all
   end
@@ -17,7 +18,6 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Book.find(params[:id])
   end
 
   def update
@@ -25,8 +25,15 @@ class BooksController < ApplicationController
     book.update(book_params)
   end
 
+  def show
+  end
+
   private
   def book_params
     params.require(:book).permit(:title, :image, :text)
+  end
+
+  def set_book
+    @book = Book.find(params[:id])
   end
 end
